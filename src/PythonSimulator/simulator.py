@@ -2,7 +2,7 @@ import time
 import random
 import json
 import paho.mqtt.client as mqtt
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Configuration
 MQTT_BROKER = "localhost"
@@ -11,7 +11,7 @@ MQTT_TOPIC = "scada/sensor/data"
 ASSET_ID = "MOTOR_001"
 
 # Connect to MQTT Broker
-client = mqtt.Client()
+client = mqtt.Client(protocol=mqtt.MQTTv311)
 
 
 def on_connect(client, userdata, flags, rc):
@@ -37,7 +37,7 @@ try:
         # Generate realistic sensor data
         sensor_data = {
             "AssetId": ASSET_ID,
-            "Timestamp": datetime.now(datetime.UTC).isoformat(),
+            "Timestamp": datetime.now(timezone.utc).isoformat(),
             "MotorAmps": round(random.uniform(8.5, 12.5), 2),
             "Temperature": round(random.uniform(65.0, 85.0), 2),
             "Vibration": round(random.uniform(0.1, 0.5), 3),
