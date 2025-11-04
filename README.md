@@ -27,6 +27,15 @@ This project delivers a digital twin framework for SCADA systems, enabling real-
   - Tech: paho-mqtt 2.1.0, Python 3.11.
 - **Future**: Integration with ASP.NET Core.
 
+### Phase 3: ASP.NET Core Backend (Milestone 2)
+- **In Progress**: Development of ASP.NET Core backend for data management and integration.
+- **Details**:
+  - Created a new ASP.NET Core Web App named `WebController` in `src/WebController`.
+  - Added packages: `Microsoft.EntityFrameworkCore.SqlServer` for database support, `Microsoft.EntityFrameworkCore.Tools` for migrations, and `MQTTnet` for MQTT integration with the Python simulator.
+  - Run: `dotnet run` from `src/WebController/WebController` to start the backend (accessible at http://localhost:5000).
+  - Tech: .NET 8.0, ASP.NET Core, Entity Framework Core, MQTTnet.
+- **Future**: Define data models, set up database migrations, and integrate with the Python simulator via MQTT.
+
 ## Quick Start (Windows)
 
 ```powershell
