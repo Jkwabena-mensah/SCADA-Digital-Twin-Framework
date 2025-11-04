@@ -7,7 +7,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MQTTnet;
-using MQTTnet.Client;
 using WebController.Data;
 using WebController.Models;
 
@@ -29,14 +28,16 @@ namespace WebController.Services
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var factory = new MqttFactory();
+            var factory = new MqttClientFactory(); // Changed from MqttFactory to MqttClientFactory
             _mqttClient = factory.CreateMqttClient();
             var options = new MqttClientOptionsBuilder()
                 .WithTcpServer("localhost", 1883)
                 .Build();
+
             _mqttClient.ApplicationMessageReceivedAsync += async e =>
             {
-                var payload = Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment);
+                var payloadBytes = e.ApplicationMessage.Payload;
+                var payload = Encoding.UTF8.GetString(payloadBytes);
                 _logger.LogInformation($"Received: {payload}");
                 try
                 {
@@ -60,6 +61,7 @@ namespace WebController.Services
                     _logger.LogError($"Error processing message: {ex.Message}");
                 }
             };
+
             await _mqttClient.ConnectAsync(options, stoppingToken);
 
             await _mqttClient.SubscribeAsync(
@@ -67,12 +69,16 @@ namespace WebController.Services
                     .WithTopic("scada/sensor/data")
                     .Build(),
                 stoppingToken);
+
             _logger.LogInformation("MQTT Subscriber Service Started");
         }
 
         public override async Task StopAsync(CancellationToken cancellationToken)
         {
-            await _mqttClient.DisconnectAsync();
+            if (_mqttClient != null)
+            {
+                await _mqttClient.DisconnectAsync();
+            }
             await base.StopAsync(cancellationToken);
         }
     }
