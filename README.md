@@ -1,18 +1,17 @@
 # SCADA Digital Twin Framework
 
-This project delivers a digital twin framework for SCADA (Supervisory Control and Data Acquisition) systems, enabling real-time simulation and monitoring of industrial processes. It progresses through defined phases, integrating Python for simulation, ASP.NET Core for backend management, and upcoming web visualization.
+An Open-Source Python/ASP.NET Core Framework for Simulating and Monitoring Industrial SCADA Systems – built by **Joseph Kwabena Mensah, PE-GhIE #09875**.
 
-## Project Overview
+[<image-card alt="Python 3.11" src="https://img.shields.io/badge/python-3.11-blue.svg" ></image-card>](https://www.python.org/downloads/release/python-3119/)  
+[<image-card alt="paho-mqtt" src="https://img.shields.io/badge/mqtt-paho%202.1.0-green" ></image-card>](#)  
+[<image-card alt=".NET 9.0" src="https://img.shields.io/badge/.NET-9.0-blueviolet" ></image-card>](#)  
+[<image-card alt="MQTTnet" src="https://img.shields.io/badge/MQTTnet-5.0.1.1416-green" ></image-card>](#)  
+[<image-card alt="Tests" src="https://github.com/Jkwabena-mensah/SCADA-Digital-Twin-Framework/actions/workflows/test.yml/badge.svg" ></image-card>](https://github.com/Jkwabena-mensah/SCADA-Digital-Twin-Framework/actions/workflows/test.yml)  
+[<image-card alt="Coverage" src="https://codecov.io/gh/Jkwabena-mensah/SCADA-Digital-Twin-Framework/branch/main/graph/badge.svg" ></image-card>](https://codecov.io/gh/Jkwabena-mensah/SCADA-Digital-Twin-Framework)  
+[<image-card alt="License" src="https://img.shields.io/github/license/Jkwabena-mensah/SCADA-Digital-Twin-Framework" ></image-card>](LICENSE)
 
-- **Languages**: C# (ASP.NET Core), Python (tests/simulator)
-- **Framework**: .NET 9.0
-- **Dependencies**: 
-  - `Microsoft.EntityFrameworkCore.SqlServer` (9.0.10)
-  - `Microsoft.EntityFrameworkCore.InMemory` (9.0.10)
-  - `MQTTnet` (5.0.1.1416)
-- **Database**: In-memory (for testing), SQL Server (configurable)
-- **Real-time Data**: MQTT integration for sensor data
-- **GitHub**: [Jkwabena-mensah/SCADA-Digital-Twin-Framework](https://github.com/Jkwabena-mensah/SCADA-Digital-Twin-Framework)
+## Overview
+This project delivers a digital twin framework for SCADA (Supervisory Control and Data Acquisition) systems, enabling real-time simulation and monitoring of industrial processes. It progresses through defined phases, integrating Python for simulation, ASP.NET Core for backend management, and a web-based HMI dashboard.
 
 ## Phases
 
@@ -34,19 +33,22 @@ This project delivers a digital twin framework for SCADA (Supervisory Control an
 - **Completed**: Development of ASP.NET Core backend for data management and MQTT integration.
 - **Details**:
   - Created a new ASP.NET Core Web App named `WebController` in `src/WebController`.
-  - Added packages: `Microsoft.EntityFrameworkCore.SqlServer` (9.0.10) for database support, `Microsoft.EntityFrameworkCore.Tools` (9.0.10) for migrations, `Microsoft.EntityFrameworkCore.InMemory` (9.0.10) for testing, and `MQTTnet` (5.0.1.1416) for MQTT integration.
-  - Defined a `SensorReading` data model in `src/WebController/WebController/Models/SensorReading.cs` to store sensor data (Id, AssetId, Timestamp, MotorAmps, Temperature, Vibration, Status), with AssetId and Status as nullable fields.
-  - Created an `ApplicationDbContext` in `src/WebController/WebController/Data/ApplicationDbContext.cs` to manage the database, registered with an in-memory database in `Program.cs`.
-  - Developed `MqttSubscriberService` in `src/WebController/WebController/Services/MqttSubscriberService.cs` to subscribe to MQTT topics (e.g., `scada/sensor/data`) and store data in the database.
-  - Resolved namespace issues (e.g., `CS0234`) by migrating to MQTTnet v5 API, removing deprecated `MQTTnet.Client`, and adjusting payload handling.
+  - Added packages: `Microsoft.EntityFrameworkCore.SqlServer` (9.0.10), `Microsoft.EntityFrameworkCore.InMemory` (9.0.10), `Microsoft.EntityFrameworkCore.Tools` (9.0.10), and `MQTTnet` (5.0.1.1416) for MQTT integration.
+  - Defined a `SensorReading` data model in `src/WebController/WebController/Models/SensorReading.cs` (Id, AssetId, Timestamp, MotorAmps, Temperature, Vibration, Status), with nullable AssetId and Status.
+  - Created an `ApplicationDbContext` in `src/WebController/WebController/Data/ApplicationDbContext.cs` with an in-memory database in `Program.cs`.
+  - Implemented `MqttSubscriberService` in `src/WebController/WebController/Services/MqttSubscriberService.cs` to subscribe to `scada/sensor/data` and store data.
+  - Added `SensorDataController` in `src/WebController/WebController/Controllers/SensorDataController.cs` with endpoints: `/latest`, `/stats`, `/health`.
+  - Migrated to MQTTnet v5 API, resolving namespace issues (e.g., `CS0234`).
   - Run: `dotnet run` from `src/WebController/WebController` (accessible at http://localhost:5000).
   - Tech: .NET 9.0, ASP.NET Core, Entity Framework Core, MQTTnet.
-- **Future**: Configure a SQL Server database, create migrations, and optimize MQTT integration.
+- **Future**: Configure a SQL Server database and create migrations.
 
 ### Phase 4: Web Dashboard & Visualization (Chart.js Integration)
-- **Upcoming**: Develop a web dashboard using Razor Pages to visualize sensor data.
-- **Goal**: Integrate Chart.js for real-time charts (e.g., line or bar charts) displaying sensor readings.
-- **Next Steps**: Create views to render charts, connect to the `SensorReadings` data, and update the service to push data to the frontend.
+- **In Progress**: Develop a web dashboard using Razor Pages to visualize sensor data.
+- **Goal**: Integrate Chart.js for real-time charts (e.g., line or bar charts) displaying Motor Amps, Temperature, and Vibration.
+- **Current Step**: Step 12 - Created REST API (`SensorDataController`) for real-time data access.
+- **Next Step**: Step 13 - Create the Main Dashboard Page with Razor and Chart.js.
+- **Future**: Real-time data updates and user interaction features.
 
 ## Quick Start (Windows)
 
