@@ -8,8 +8,7 @@ namespace WebController.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        public string AssetId { get; set; }
+        public string? AssetId { get; set; }
 
         [Required]
         public DateTime Timestamp { get; set; }
@@ -20,6 +19,6 @@ namespace WebController.Models
 
         public double Vibration { get; set; }
 
-        public string Status { get; set; }
+        public string? Status { get; set; }
     }
 }
