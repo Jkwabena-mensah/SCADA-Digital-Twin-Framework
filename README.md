@@ -32,9 +32,10 @@ This project delivers a digital twin framework for SCADA systems, enabling real-
 - **Details**:
   - Created a new ASP.NET Core Web App named `WebController` in `src/WebController`.
   - Added packages: `Microsoft.EntityFrameworkCore.SqlServer` for database support, `Microsoft.EntityFrameworkCore.Tools` for migrations, and `MQTTnet` for MQTT integration with the Python simulator.
+  - Defined a `SensorReading` data model in `src/WebController/WebController/Models/SensorReading.cs` to store sensor data (Id, AssetId, Timestamp, MotorAmps, Temperature, Vibration, Status).
   - Run: `dotnet run` from `src/WebController/WebController` to start the backend (accessible at http://localhost:5000).
   - Tech: .NET 8.0, ASP.NET Core, Entity Framework Core, MQTTnet.
-- **Future**: Define data models, set up database migrations, and integrate with the Python simulator via MQTT.
+- **Future**: Create database context, set up migrations, and integrate with the Python simulator via MQTT.
 
 ## Quick Start (Windows)
 
