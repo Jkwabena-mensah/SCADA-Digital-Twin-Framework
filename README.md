@@ -61,9 +61,9 @@ The SCADA Digital Twin Framework is an open-source platform for simulating and m
     - Registered Razor Pages, API controllers, and `MqttSubscriberService` as hosted services.
     - Added CORS policy (`AllowAll`) for development flexibility.
     - Implemented middleware for HTTPS redirection, static files, routing, and error handling.
-  - **Step 15: Update appsettings.json** - In Progress:
-    - Objective: Enhance `appsettings.json` with detailed configuration for database, MQTT, and logging.
-    - Next Action: Add connection strings, MQTT broker settings, and logging levels.
+- **Step 15: Update appsettings.json** - Completed (November 06, 2025):
+  - Configured logging levels, allowed hosts, SQL Server LocalDB connection, and MQTT settings.
+  - Added `MqttSettings` for broker host (`localhost`), port (1883), and topic (`scada/sensor/data`).
 - **Technologies**: Chart.js, Razor Pages, ASP.NET Core
 - **Future**: Real-time data updates and user interaction features.
 
