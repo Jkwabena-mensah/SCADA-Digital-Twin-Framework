@@ -4,21 +4,31 @@ using WebController.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddRazorPages();
+// 1. Database Configuration
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? "Server=(localdb)\\mssqllocaldb;Database=ScadaDigitalTwinDB;Trusted_Connection=True;MultipleActiveResultSets=true";
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseInMemoryDatabase("TempDatabase"));
+    options.UseSqlServer(connectionString));
+
+// 2. Web Services
+builder.Services.AddRazorPages();
+builder.Services.AddControllers(); // Important for API endpoints
+
+// 3. MQTT Background Service
 builder.Services.AddHostedService<MqttSubscriberService>();
-builder.Services.AddControllers(); // Enable API controllers
+
+// 4. CORS (if needed for development)
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", builder =>
-        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+    options.AddPolicy("AllowAll",
+        builder => builder.AllowAnyOrigin()
+                         .AllowAnyMethod()
+                         .AllowAnyHeader());
 });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure middleware
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
@@ -28,9 +38,19 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-app.UseCors("AllowAll"); // Apply CORS policy
-app.UseAuthorization();
+
+// Enable CORS
+app.UseCors("AllowAll");
+
+// Map endpoints
 app.MapRazorPages();
-app.MapControllers(); // Map API endpoints
+app.MapControllers(); // Critical for API routes
+
+// Auto-create database on startup
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.EnsureCreated(); // Creates database if it doesn't exist
+}
 
 app.Run();
