@@ -7,8 +7,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseInMemoryDatabase("TempDatabase")); // Requires Microsoft.EntityFrameworkCore.InMemory
+    options.UseInMemoryDatabase("TempDatabase"));
 builder.Services.AddHostedService<MqttSubscriberService>();
+builder.Services.AddControllers(); // Enable API controllers
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
 
 var app = builder.Build();
 
@@ -22,7 +28,9 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseCors("AllowAll"); // Apply CORS policy
 app.UseAuthorization();
 app.MapRazorPages();
+app.MapControllers(); // Map API endpoints
 
 app.Run();

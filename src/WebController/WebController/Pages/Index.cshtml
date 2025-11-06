@@ -1,10 +1,192 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "SCADA Digital Twin - HMI Dashboard";
 }
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- Moved CSS to external file -->
+    <link rel="stylesheet" href="~/css/dashboard.css" />
+</head>
+
+<body>
+    <div class="header">
+        <h1>⚡ SCADA Digital Twin Dashboard</h1>
+        <p>Real-Time Industrial Asset Monitoring - Motor 001</p>
+    </div>
+    <!-- Status Cards -->
+    <div class="dashboard-grid">
+        <div class="status-card">
+            <h3>Motor Status</h3>
+            <div class="status-value">
+                <span class="status-indicator status-running" id="statusIndicator"></span>
+                <span id="motorStatus">RUNNING</span>
+            </div>
+        </div>
+        <div class="status-card">
+            <h3>Motor Current</h3>
+            <div class="status-value" id="currentAmps">--</div>
+            <div class="status-unit">Amps</div>
+        </div>
+        <div class="status-card">
+            <h3>Temperature</h3>
+            <div class="status-value" id="currentTemp">--</div>
+            <div class="status-unit">°F</div>
+        </div>
+        <div class="status-card">
+            <h3>Vibration</h3>
+            <div class="status-value" id="currentVibration">--</div>
+            <div class="status-unit">mm/s</div>
+        </div>
+        <div class="status-card">
+            <h3>System Health</h3>
+            <div class="status-value">
+                <span class="status-indicator status-running" id="healthIndicator"></span>
+                <span id="systemHealth">NORMAL</span>
+            </div>
+        </div>
+        <div class="status-card">
+            <h3>Total Readings</h3>
+            <div class="status-value" id="totalReadings">0</div>
+            <div class="status-unit">Records</div>
+        </div>
+    </div>
+    <!-- Charts -->
+    <div class="chart-container">
+        <h2>📈 Motor Current Trend</h2>
+        <div class="chart-wrapper"><canvas id="ampsChart"></canvas></div>
+    </div>
+    <div class="chart-container">
+        <h2>🌡️ Temperature Trend</h2>
+        <div class="chart-wrapper"><canvas id="tempChart"></canvas></div>
+    </div>
+    <div class="chart-container">
+        <h2>📊 Vibration Monitoring</h2>
+        <div class="chart-wrapper"><canvas id="vibrationChart"></canvas></div>
+    </div>
+    <div class="last-update">Last Updated: <span id="lastUpdate">--</span></div>
+    <div class="footer">
+        <p>SCADA Digital Twin Framework | Open-Source Industrial IoT Platform</p>
+        <p>Built with Python, ASP.NET Core, SQL & MQTT</p>
+    </div>
+    <script>
+        // Chart.js global options
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: { color: '#ffffff' }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { color: '#ffffff' },
+                    grid: { color: 'rgba(255,255,255,0.1)' }
+                },
+                y: {
+                    ticks: { color: '#ffffff' },
+                    grid: { color: 'rgba(255,255,255,0.1)' }
+                }
+            }
+        };
+        // Initialize charts
+        const ampsChart = new Chart(document.getElementById('ampsChart'), {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Motor Amps',
+                    data: [],
+                    borderColor: '#00ff88',
+                    backgroundColor: 'rgba(0,255,136,0.1)',
+                    borderWidth: 2,
+                    tension: 0.4
+                }]
+            },
+            options: chartOptions
+        });
+        const tempChart = new Chart(document.getElementById('tempChart'), {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Temperature (°F)',
+                    data: [],
+                    borderColor: '#ff6b6b',
+                    backgroundColor: 'rgba(255,107,107,0.1)',
+                    borderWidth: 2,
+                    tension: 0.4
+                }]
+            },
+            options: chartOptions
+        });
+        const vibrationChart = new Chart(document.getElementById('vibrationChart'), {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Vibration (mm/s)',
+                    data: [],
+                    borderColor: '#4ecdc4',
+                    backgroundColor: 'rgba(78,205,196,0.1)',
+                    borderWidth: 2,
+                    tension: 0.4
+                }]
+            },
+            options: chartOptions
+        });
+        // Fetch and update dashboard
+        async function updateDashboard() {
+            try {
+                const response = await fetch('/api/SensorData/latest?count=50');
+                const data = await response.json();
+                if (data && data.length > 0) {
+                    const labels = data.map(r => new Date(r.timestamp).toLocaleTimeString());
+                    const ampsData = data.map(r => r.motorAmps);
+                    const tempData = data.map(r => r.temperature);
+                    const vibData = data.map(r => r.vibration);
+                    ampsChart.data.labels = labels;
+                    ampsChart.data.datasets[0].data = ampsData;
+                    ampsChart.update('none');
+                    tempChart.data.labels = labels;
+                    tempChart.data.datasets[0].data = tempData;
+                    tempChart.update('none');
+                    vibrationChart.data.labels = labels;
+                    vibrationChart.data.datasets[0].data = vibData;
+                    vibrationChart.update('none');
+                    const latest = data[data.length - 1];
+                    document.getElementById('currentAmps').textContent = latest.motorAmps.toFixed(2);
+                    document.getElementById('currentTemp').textContent = latest.temperature.toFixed(1);
+                    document.getElementById('currentVibration').textContent = latest.vibration.toFixed(3);
+                    document.getElementById('motorStatus').textContent = latest.status;
+                }
+                const statsResponse = await fetch('/api/SensorData/stats');
+                const stats = await statsResponse.json();
+                document.getElementById('totalReadings').textContent = stats.totalReadings.toLocaleString();
+                const healthResponse = await fetch('/api/SensorData/health');
+                const health = await healthResponse.json();
+                document.getElementById('systemHealth').textContent = health.health;
+                const healthIndicator = document.getElementById('healthIndicator');
+                healthIndicator.className = 'status-indicator';
+                healthIndicator.classList.add(health.health === 'NORMAL' ? 'status-running' : 'status-warning');
+                document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
+            } catch (error) {
+                console.error('Error updating dashboard:', error);
+            }
+        }
+        // Initial update + 2-second polling
+        updateDashboard();
+        setInterval(updateDashboard, 2000);
+    </script>
+</body>
+
+</html>

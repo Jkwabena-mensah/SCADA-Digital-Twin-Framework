@@ -39,7 +39,7 @@ This project delivers a digital twin framework for SCADA (Supervisory Control an
   - Implemented `MqttSubscriberService` in `src/WebController/WebController/Services/MqttSubscriberService.cs` to subscribe to `scada/sensor/data` and store data.
   - Added `SensorDataController` in `src/WebController/WebController/Controllers/SensorDataController.cs` with endpoints: `/latest`, `/stats`, `/health`.
   - Migrated to MQTTnet v5 API, resolving namespace issues (e.g., `CS0234`).
-  - Run: `dotnet run` from `src/WebController/WebController` (accessible at http://localhost:5000).
+  - Run: `dotnet run` from `src/WebController/WebController` (accessible at http://localhost:5267).
   - Tech: .NET 9.0, ASP.NET Core, Entity Framework Core, MQTTnet.
 - **Future**: Configure a SQL Server database and create migrations.
 
