@@ -56,9 +56,14 @@ The SCADA Digital Twin Framework is an open-source platform for simulating and m
     - Integrated real-time sensor data via REST API endpoints.
     - Moved CSS to `wwwroot/css/dashboard.css` for maintainability.
     - Adjusted port to 5267 based on runtime assignment.
-  - **Step 14: Update Program.cs Configuration** - In Progress:
-    - Objective: Enhance `Program.cs` to configure services, middleware, and port settings for scalability.
-    - Next Action: Update dependency injection and add error handling middleware.
+  - **Step 14: Update Program.cs Configuration** - Completed (November 06, 2025):
+    - Configured SQL Server LocalDB (`ScadaDigitalTwinDB`) with `EnsureCreated()` for automatic database creation.
+    - Registered Razor Pages, API controllers, and `MqttSubscriberService` as hosted services.
+    - Added CORS policy (`AllowAll`) for development flexibility.
+    - Implemented middleware for HTTPS redirection, static files, routing, and error handling.
+  - **Step 15: Update appsettings.json** - In Progress:
+    - Objective: Enhance `appsettings.json` with detailed configuration for database, MQTT, and logging.
+    - Next Action: Add connection strings, MQTT broker settings, and logging levels.
 - **Technologies**: Chart.js, Razor Pages, ASP.NET Core
 - **Future**: Real-time data updates and user interaction features.
 
