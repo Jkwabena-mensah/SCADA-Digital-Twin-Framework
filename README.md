@@ -66,6 +66,12 @@ The SCADA Digital Twin Framework is an open-source platform for simulating and m
   - Added `MqttSettings` for broker host (`localhost`), port (1883), and topic (`scada/sensor/data`).
 - **Technologies**: Chart.js, Razor Pages, ASP.NET Core
 - **Future**: Real-time data updates and user interaction features.
+- **Step 16: Test the Complete System** - Completed (November 07, 2025):
+  - Verified end-to-end functionality with MQTT broker, Python simulator, and ASP.NET Core app.
+  - Confirmed real-time charts, status cards, HMI design, pulsing indicators, and total readings counter.
+- **Step 17: Take Screenshots for Documentation** - Completed (November 07, 2025):
+  - Captured screenshots of the dashboard, charts, simulator output, live charts updating short video and mosquitto terminal.
+  - Saved in `docs/screenshots/` for reference.
 
 ## Quick Start (Windows)
 
