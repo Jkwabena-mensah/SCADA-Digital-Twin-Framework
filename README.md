@@ -72,6 +72,10 @@ The SCADA Digital Twin Framework is an open-source platform for simulating and m
 - **Step 17: Take Screenshots for Documentation** - Completed (November 07, 2025):
   - Captured screenshots of the dashboard, charts, simulator output, live charts updating short video and mosquitto terminal.
   - Saved in `docs/screenshots/` for reference.
+  - **Step 18: Create Enhanced API Endpoints** - Completed (November 07, 2025, updated November 09, 2025):
+  - Enhanced `SensorDataController` with endpoints for data retrieval (`latest`, by ID), time-based queries (`range`, `last-minutes`), statistics (`stats`, `aggregated`), system health (`health`, `alerts`), asset management (`assets`), and API info (`info`).
+  - Added filtering by assetId, date ranges, and aggregation by minute/hour.
+  - Implemented error handling, logging, and fixed null reference warnings with a null guard in helper methods.
 
 ## Quick Start (Windows)
 
