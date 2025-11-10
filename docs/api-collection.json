@@ -1,0 +1,278 @@
+{
+    "info": {
+        "name": "SCADA Digital Twin API",
+        "description": "Complete API collection for testing SCADA Digital Twin Framework",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Data Retrieval",
+            "item": [
+                {
+                    "name": "Get Latest Readings",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api/SensorData/latest?count=100",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "SensorData",
+                                "latest"
+                            ],
+                            "query": [
+                                {
+                                    "key": "count",
+                                    "value": "100",
+                                    "description": "Number of readings to retrieve"
+                                },
+                                {
+                                    "key": "assetId",
+                                    "value": "MOTOR_001",
+                                    "description": "Filter by specific asset",
+                                    "disabled": true
+                                }
+                            ]
+                        },
+                        "description": "Retrieves the most recent sensor readings"
+                    }
+                },
+                {
+                    "name": "Get Reading by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api/SensorData/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "SensorData",
+                                "1"
+                            ]
+                        },
+                        "description": "Get a specific sensor reading by ID"
+                    }
+                },
+                {
+                    "name": "Get Readings by Date Range",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api/SensorData/range?start=2024-01-01T00:00:00&end=2024-12-31T23:59:59",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "SensorData",
+                                "range"
+                            ],
+                            "query": [
+                                {
+                                    "key": "start",
+                                    "value": "2024-01-01T00:00:00"
+                                },
+                                {
+                                    "key": "end",
+                                    "value": "2024-12-31T23:59:59"
+                                }
+                            ]
+                        },
+                        "description": "Get readings within a specific date/time range"
+                    }
+                },
+                {
+                    "name": "Get Last N Minutes",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api/SensorData/last-minutes?minutes=5",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "SensorData",
+                                "last-minutes"
+                            ],
+                            "query": [
+                                {
+                                    "key": "minutes",
+                                    "value": "5"
+                                }
+                            ]
+                        },
+                        "description": "Get readings from the last N minutes"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Analytics",
+            "item": [
+                {
+                    "name": "Get Statistics",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api/SensorData/stats?minutes=5",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "SensorData",
+                                "stats"
+                            ],
+                            "query": [
+                                {
+                                    "key": "minutes",
+                                    "value": "5"
+                                }
+                            ]
+                        },
+                        "description": "Get comprehensive system statistics"
+                    }
+                },
+                {
+                    "name": "Get Aggregated Data",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api/SensorData/aggregated?interval=minute&minutes=60",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "SensorData",
+                                "aggregated"
+                            ],
+                            "query": [
+                                {
+                                    "key": "interval",
+                                    "value": "minute",
+                                    "description": "Options: minute, hour"
+                                },
+                                {
+                                    "key": "minutes",
+                                    "value": "60"
+                                }
+                            ]
+                        },
+                        "description": "Get time-series data aggregated by interval"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Monitoring",
+            "item": [
+                {
+                    "name": "Get System Health",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api/SensorData/health",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "SensorData",
+                                "health"
+                            ]
+                        },
+                        "description": "Get current system health status with threshold checks"
+                    }
+                },
+                {
+                    "name": "Get Alerts History",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api/SensorData/alerts?hours=24",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "SensorData",
+                                "alerts"
+                            ],
+                            "query": [
+                                {
+                                    "key": "hours",
+                                    "value": "24"
+                                }
+                            ]
+                        },
+                        "description": "Get history of threshold violations"
+                    }
+                },
+                {
+                    "name": "Get Assets List",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api/SensorData/assets",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "SensorData",
+                                "assets"
+                            ]
+                        },
+                        "description": "Get list of all monitored assets"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "System",
+            "item": [
+                {
+                    "name": "Get API Info",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api/SensorData/info",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "SensorData",
+                                "info"
+                            ]
+                        },
+                        "description": "Get API information and available endpoints"
+                    }
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:5000",
+            "type": "string"
+        }
+    ]
+}
