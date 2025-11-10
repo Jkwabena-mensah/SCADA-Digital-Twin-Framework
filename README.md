@@ -76,6 +76,19 @@ The SCADA Digital Twin Framework is an open-source platform for simulating and m
   - Enhanced `SensorDataController` with endpoints for data retrieval (`latest`, by ID), time-based queries (`range`, `last-minutes`), statistics (`stats`, `aggregated`), system health (`health`, `alerts`), asset management (`assets`), and API info (`info`).
   - Added filtering by assetId, date ranges, and aggregation by minute/hour.
   - Implemented error handling, logging, and fixed null reference warnings with a null guard in helper methods.
+  - **Step 19: Create API Testing Page** - Completed (November 09, 2025):
+  - Added `ApiTest.cshtml` to create an interactive dashboard for testing API endpoints.
+  - Implemented a client-side JavaScript function to fetch and display responses.
+  - Included auto-testing of the `/api/SensorData/info` endpoint on page load.
+  - Added `ApiTest.cshtml.cs` as the code-behind file for server-side support.
+- **Technologies**: Razor Pages, HTML, CSS, JavaScript
+- **Future**: Enhance with real-time updates or additional endpoint parameters.
+  - **Step 20: Create Postman Collection for API Testing** - Completed (November 10, 2025):
+  - Added `docs/api-collection.json` to define a Postman collection for testing all SCADA API endpoints.
+  - Organized endpoints into `Data Retrieval`, `Analytics`, `Monitoring`, and `System` categories.
+  - Included variable `base_url` for flexibility, adjustable to the running server port.
+- **Technologies**: Postman Collection v2.1.0
+- **Future**: Expand with POST/PUT endpoints or additional query parameters.
 
 ## Quick Start (Windows)
 
