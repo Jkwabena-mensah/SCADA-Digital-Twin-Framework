@@ -89,6 +89,12 @@ The SCADA Digital Twin Framework is an open-source platform for simulating and m
   - Included variable `base_url` for flexibility, adjustable to the running server port.
 - **Technologies**: Postman Collection v2.1.0
 - **Future**: Expand with POST/PUT endpoints or additional query parameters.
+- **Step 21: Create API Documentation** - Completed (November 14, 2025):
+  - Added `docs/API_DOCUMENTATION.md` with detailed REST API documentation.
+  - Covered data retrieval, analytics, monitoring, and system endpoints with examples.
+  - Included response codes, error handling, testing instructions, and additional notes.
+- **Technologies**: Markdown
+- **Future**: Expand with authentication details or advanced usage scenarios.
 
 ## Quick Start (Windows)
 
