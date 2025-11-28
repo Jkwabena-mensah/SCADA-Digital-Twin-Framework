@@ -1,50 +1,125 @@
-# SCADA Digital Twin Framework
+Here is the **final, professional, GitHub-ready, fully updated README.md** — perfectly merging your original style (badges, structured phases, clean layout) with everything you have achieved up to **28 November 2025**.
 
-**Version**: 0.1.0  
-**Last Updated**: November 06, 2025  
+This version keeps your voice and structure but brings it fully up to date — **copy-paste this entire block** into your local `README.md`, save, commit, and push.
+
+```markdown
+# SCADA Digital Twin Framework
+**Real-time Industrial Asset Monitoring & Digital Twin Platform**
+
+**Version**: 1.0.0  
+**Last Updated**: 28 November 2025  
 **Author**: Joseph Kwabena Mensah, PE-GhIE #09875  
 **License**: [MIT](LICENSE)
 
-[<image-card alt="Python 3.11" src="https://img.shields.io/badge/python-3.11-blue.svg" ></image-card>](https://www.python.org/downloads/release/python-3119/)  
-[<image-card alt="paho-mqtt" src="https://img.shields.io/badge/mqtt-paho%202.1.0-green" ></image-card>](https://pypi.org/project/paho-mqtt/)  
-[<image-card alt=".NET 9.0" src="https://img.shields.io/badge/.NET-9.0-blueviolet" ></image-card>](https://dotnet.microsoft.com/download/dotnet/9.0)  
-[<image-card alt="MQTTnet" src="https://img.shields.io/badge/MQTTnet-5.0.1.1416-green" ></image-card>](https://github.com/chkr1011/MQTTnet)  
-[<image-card alt="Tests" src="https://github.com/Jkwabena-mensah/SCADA-Digital-Twin-Framework/actions/workflows/test.yml/badge.svg" ></image-card>](https://github.com/Jkwabena-mensah/SCADA-Digital-Twin-Framework/actions/workflows/test.yml)  
-[<image-card alt="Coverage" src="https://codecov.io/gh/Jkwabena-mensah/SCADA-Digital-Twin-Framework/branch/main/graph/badge.svg" ></image-card>](https://codecov.io/gh/Jkwabena-mensah/SCADA-Digital-Twin-Framework)  
-[<image-card alt="License" src="https://img.shields.io/github/license/Jkwabena-mensah/SCADA-Digital-Twin-Framework" ></image-card>](LICENSE)
+[![Python 3.11](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
+[![paho-mqtt](https://img.shields.io/badge/mqtt-paho--mqtt%202.1.0-green)](https://pypi.org/project/paho-mqtt/)
+[![.NET 9.0](https://img.shields.io/badge/.NET-9.0-blueviolet)](https://dotnet.microsoft.com/download/dotnet/9.0)
+[![MQTTnet](https://img.shields.io/badge/MQTTnet-5.0.1.1416-green)](https://github.com/chkr1011/MQTTnet)
+[![SQL Server](https://img.shields.io/badge/SQL_Server-LocalDB-CC2927)](https://learn.microsoft.com/en-us/sql/)
+[![License](https://img.shields.io/github/license/Jkwabena-mensah/SCADA-Digital-Twin-Framework)](LICENSE)
+
+![Live HMI Dashboard – November 2025](docs/screenshots/dashboard_full_5267.png)
 
 ## Overview
+The SCADA Digital Twin Framework is an open-source, full-stack platform for simulating and monitoring industrial SCADA systems in real-time. Built with Python, ASP.NET Core 9, SQL Server LocalDB, and MQTT, it provides a scalable, production-grade digital twin solution for motors, pumps, and critical assets in mining, energy, and manufacturing.
 
-The SCADA Digital Twin Framework is an open-source platform for simulating and monitoring industrial SCADA systems in real-time. Built with Python, ASP.NET Core, SQL, and MQTT, it provides a scalable solution for creating digital twins, progressing through defined development phases.
+**Fully working • End-to-end tested • Senior-level industrial IoT showcase**
+
+## Live Local Demo
+- **HMI Dashboard**: http://localhost:5267  
+- **API Test Page**: http://localhost:5267/ApiTest  
+- **Port**: 5267 (stable)
 
 ## Phases
 
-### Phase 1: Project Setup
-- **Status**: Completed
-- **Details**: Established the initial project structure with directories (`src/PythonSimulator`, `src/WebController`, `docs`, `tests`) and placeholder files for a modular SCADA framework.
-- **Technologies**: Python 3.11, Git
+### Phase 1: Project Setup – Completed
+- Established modular project structure (`src/PythonSimulator`, `src/WebController`, `docs`, `tests`)
 
-### Phase 2: Python Simulator (Milestone 1)
+### Phase 2: Python Simulator (Milestone 1) – Completed
+- Real-time simulation of motor sensor data (Amps, Temperature, Vibration)
+- MQTT publishing to topic `scada/sensor/data`
+- Run: `python src/PythonSimulator/simulator.py`
+
+### Phase 3: ASP.NET Core Backend (Milestone 2) – Completed
+- ASP.NET Core 9 Web App with MQTTnet v5 subscriber
+- Entity Framework Core + SQL Server LocalDB persistence
+- `SensorDataController` with REST API endpoints
+- MqttSubscriberService running as hosted service
+
+### Phase 4: Web Dashboard & Full API (Milestone 3) – Completed (28 November 2025)
 - **Status**: Completed
 - **Details**:
-  - Simulates real-time SCADA sensor data (Motor Amps, Temperature, Vibration) using MQTT.
-  - Run: `python src/PythonSimulator/simulator.py` (requires Mosquitto broker).
-  - Test: `python src/PythonSimulator/subscribe.py` to verify data.
-- **Technologies**: paho-mqtt 2.1.0, Python 3.11
-- **Future**: Enhanced integration with the ASP.NET Core backend.
+  - Modern glassmorphism HMI dashboard with live Chart.js 4 line charts
+  - Real-time status cards with pulsing indicators and health monitoring
+  - Interactive API testing page at `/ApiTest`
+  - 10+ enterprise REST API endpoints:
+    - `/latest`, `/stats`, `/health`, `/alerts`, `/aggregated`, `/range`, `/assets`, etc.
+  - Postman collection + full documentation
+  - Live screenshots and terminal proof in `docs/screenshots/`
+- **Technologies**: Razor Pages, Chart.js 4, CSS Grid/Flexbox, JavaScript Fetch API
+- **Live Demo**: http://localhost:5267
 
-### Phase 3: ASP.NET Core Backend (Milestone 2)
-- **Status**: Completed
-- **Details**:
-  - Developed an ASP.NET Core Web App (`WebController`) in `src/WebController`.
-  - Added packages: `Microsoft.EntityFrameworkCore.SqlServer` (9.0.10), `Microsoft.EntityFrameworkCore.InMemory` (9.0.10), `Microsoft.EntityFrameworkCore.Tools` (9.0.10), `MQTTnet` (5.0.1.1416).
-  - Defined `SensorReading` model in `src/WebController/WebController/Models/SensorReading.cs` (Id, AssetId, Timestamp, MotorAmps, Temperature, Vibration, Status, with nullable fields).
-  - Created `ApplicationDbContext` in `src/WebController/WebController/Data/ApplicationDbContext.cs` with an in-memory database in `Program.cs`.
-  - Implemented `MqttSubscriberService` in `src/WebController/WebController/Services/MqttSubscriberService.cs` to subscribe to `scada/sensor/data` and store data.
-  - Added `SensorDataController` in `src/WebController/WebController/Controllers/SensorDataController.cs` with endpoints: `/latest`, `/stats`, `/health`.
-  - Migrated to MQTTnet v5 API, resolving namespace issues (e.g., `CS0234`).
-  - Run: `dotnet run` from `src/WebController/WebController` (accessible at http://localhost:5267).
-- **Technologies**: .NET 9.0, ASP.NET Core, Entity Framework Core, MQTTnet
-- **Future**: Configure a SQL Server database and create migrations.
+## Quick Start (3 Terminals)
 
-$finalPhase
+```bash
+# Terminal 1 – MQTT Broker
+mosquitto
+
+# Terminal 2 – Python Simulator
+cd src/PythonSimulator
+python simulator.py
+
+# Terminal 3 – ASP.NET Core Web App
+cd src/WebController/WebController
+dotnet run
+```
+
+Then open → **http://localhost:5267**
+
+## Project Structure
+```
+src/
+├── PythonSimulator/          → Real-time MQTT sensor simulator
+├── WebController/
+│   └── WebController/
+│       ├── Pages/            → Dashboard + ApiTest
+│       ├── Controllers/      → SensorDataController (REST API)
+│       ├── Services/         → MqttSubscriberService
+│       ├── Models/           → SensorReading
+│       └── Data/             → ApplicationDbContext + SQL
+docs/
+├── screenshots/              → Live proof (November 2025)
+├── API_DOCUMENTATION.md      → Complete API spec
+└── api-collection.json       → Postman collection
+```
+
+## Technologies
+- **Backend**: .NET 9.0, ASP.NET Core, Entity Framework Core 9, MQTTnet 5
+- **Frontend**: Razor Pages, Chart.js 4, Glassmorphism CSS
+- **Database**: SQL Server LocalDB (`ScadaDigitalTwinDB`)
+- **Messaging**: MQTT (Mosquitto), paho-mqtt 2.1.0
+- **Simulator**: Python 3.11
+
+## API Examples (PowerShell)
+```powershell
+curl http://localhost:5267/api/SensorData/health           | ConvertFrom-Json
+curl http://localhost:5267/api/SensorData/stats?minutes=5   | ConvertFrom-Json
+curl http://localhost:5267/api/SensorData/latest?count=10   | ConvertFrom-Json
+```
+
+## Live Screenshots (November 2025)
+See all proof → [`docs/screenshots/`](docs/screenshots/)
+
+## Roadmap
+- Phase 5 → SignalR real-time push (zero polling)  
+- Phase 6 → Authentication & role-based access  
+- Phase 7 → Docker + cloud deployment  
+- Phase 8 → Multi-asset + predictive maintenance ML
+
+## Author
+**Joseph Kwabena Mensah**  
+Professional Engineer – Ghana Institution of Engineering (PE-GhIE #09875)  
+Minerals Commission Certified Electrician – Republic of Ghana  
+LinkedIn: https://linkedin.com/in/joseph-kwabena-mensah
+
+
