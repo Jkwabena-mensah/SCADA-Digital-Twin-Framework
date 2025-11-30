@@ -1,8 +1,3 @@
-Here is the **final, professional, GitHub-ready, fully updated README.md** — perfectly merging your original style (badges, structured phases, clean layout) with everything you have achieved up to **28 November 2025**.
-
-This version keeps your voice and structure but brings it fully up to date — **copy-paste this entire block** into your local `README.md`, save, commit, and push.
-
-```markdown
 # SCADA Digital Twin Framework
 **Real-time Industrial Asset Monitoring & Digital Twin Platform**
 
